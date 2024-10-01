@@ -1,548 +1,208 @@
-# Educa Blog Node.js
 
-## Link para o video
-```...```
+# Documentação do Projeto - Bloguinho
 
-## Problema
-Atualmente, a maior parte de professores e professoras da rede pública de educação não têm plataformas onde postar suas aulas e transmitir conhecimento para alunos e alunas de forma prática, centralizada e tecnológica. O EducaBlog foi criado para resolver esse problema, proporcionando uma plataforma dinâmica e acessível para que professores possam compartilhar conhecimento com seus alunos de forma eficiente.
+## 1. Introdução
+O projeto "Bloguinho" é uma aplicação web desenvolvida com Next.js que permite a criação, edição e visualização de posts de blog. Neste sistema, professores podem se registrar, fazer login, criar, editar e excluir posts, enquanto alunos podem apenas visualizar os posts e deixar comentários.
 
-## Descrição
+## 2. Equipe
+- Ariel Andrielli Rodrigues da Silva
+- Gustavo Almeida Carriel
+- José Luccas Gabriel Francisco de Andrade Santos
+- Vitor Vilson Laurentino
+- Thwany Leles
 
-O EducaBlog é uma aplicação de blogging projetada para professores da rede pública de educação, permitindo que eles postem e compartilhem conteúdo educativo com seus alunos.
+## 3. Prototipagem
+O protótipo da aplicação foi desenvolvido e está disponível no Figma: [Protótipo do Bloguinho](https://www.figma.com/design/bPldSjHtmWBWHiogO8m51g/Desafio-%233?node-id=5-2&node-type=canvas&t=V2F63xc6l1fOxtgT-0).
 
-## Setup Inicial
+## 4. Setup Inicial
 
-1. Clone o repositório:
+### Pré-requisitos
+- Node.js (v20 ou superior)
+- npm (v6 ou superior) ou yarn
+- Um backend configurado e em execução
+
+### Instalação
+Clone o repositório:
+
 ```bash
-git clone https://github.com/seu-usuario/techchallenge2.git
-cd techchallenge2
+git clone https://github.com/thwanyleles/techchallenge3.git
+cd techchallenge3
 ```
 
-2. Instale as dependências:
+Instale as dependências:
+
 ```bash
 npm install
 ```
-
-3. Configure as variáveis de ambiente:
-Crie um arquivo .env na raiz do projeto e adicione as seguintes variáveis:
+ou
+```bash
+yarn install
 ```
-DATABASE_URL=postgresql://educablog:123456@db:5432/educablog?schema=public
-JWT_SECRET=F6&uP!5m@6B0g3vR8kL*Q9z7D
- ```
 
-4. Inicie o banco de dados com o Docker:
+**Backend:** Para que a aplicação funcione corretamente, você precisará rodar o backend. O backend está disponível neste [repositório](https://github.com/FullStack24/techchallenge2). Certifique-se de que o backend esteja rodando (normalmente na porta 3000) antes de iniciar o frontend.
+
+Inicie o servidor de desenvolvimento:
 
 ```bash
-docker-compose up --build  
+npm run dev
 ```
-
-5. Gere o cliente Prisma e aplique as migrações:
-
+ou
 ```bash
-npx prisma generate
-docker-compose exec app npx prisma db push
+yarn dev
 ```
 
-6. Inicie a aplicação:
-```bash
-docker-compose up
+Abra o navegador e acesse `http://localhost:3001` para visualizar a aplicação.
+
+## 5. Arquitetura da Aplicação
+A arquitetura do sistema é baseada na estrutura de pastas do Next.js, que organiza componentes, páginas, contextos e serviços. Abaixo está a estrutura de diretórios do projeto:
+
 ```
-   
-# Experiências e Desafios
-
-Durante o desenvolvimento deste projeto, enfrentamos diversos desafios, como a integração de autenticação e autorização, garantia de cobertura de testes e configuração de workflows de CI/CD. Cada desafio foi uma oportunidade de aprendizado e crescimento para a equipe.
-**Desafios Técnicos:**
-- Implementação da autenticação JWT.
-- Integração com o banco de dados PostgreSQL.
-- Garantia de cobertura mínima de 30% de testes unitários.
-- Configuração e automação de CI/CD com GitHub Actions.
-
-# Arquitetura da Aplicação
-
-A aplicação segue uma arquitetura organizada para separar as responsabilidades e facilitar a manutenção:
-
-````
-techchallenge2
-│
-├── .github/
-│   └── workflows/
-│       └── ci-cd.yml
-│
-├── coverage/
-│
-├── dist/
-│
-├── node_modules/
-│
-├── prisma/
-│   ├── migrations/
-│   └── schema.prisma
-│
-├── src/
-│   ├── config/
-│   │   ├── database.ts
-│   │   └── logger.ts
-│   │
-│   ├── controllers/
-│   │   ├── authController.ts
-│   │   ├── postController.ts
-│   │   └── userController.ts
-│   │
-│   ├── errors/
-│   │   └── AppError.ts
-│   │
-│   ├── interfaces/
-│   │   ├── IPost.ts
-│   │   └── IUser.ts
-│   │
-│   ├── middlewares/
-│   │   ├── authMiddleware.ts
-│   │   ├── errorHandler.ts
-│   │   └── validationMiddleware.ts
-│   │
-│   ├── models/
-│   │   ├── postModel.ts
-│   │   └── userModel.ts
-│   │
-│   ├── repositories/
-│   │   ├── postRepository.ts
-│   │   └── userRepository.ts
-│   │
-│   ├── routes/
-│   │   ├── authRoutes.ts
-│   │   ├── postRoutes.ts
-│   │   └── userRoutes.ts
-│   │
-│   ├── services/
-│   │   ├── postService.ts
-│   │   └── userService.ts
-│   │
-│   ├── tests/
-│   │   ├── postService.test.ts
-│   │   └── userService.test.ts
-│   │
-│   ├── types/
-│   │   ├── express.d.ts
-│   │   └── yamljs.d.ts
-│   │
-│   ├── utils/
-│   │   ├── checkEnv.ts
-│   │   └── getIdFromToken.ts
-│   │
-│   └── app.ts
-│
-├── .env
-├── .gitignore
-├── combined.log
-├── docker-compose.yml
-├── Dockerfile
-├── error.log
-├── eslint.config.mjs
-├── jest.config.js
-├── LICENSE
-├── package.json
-├── package-lock.json
-├── README.md
-├── swagger.yaml
-├── tsconfig.json
-└── tsconfig.build.json
-````
-
-
-# Guia de Uso das APIs
-
-### Endpoints
-
-* **GET /api/users**: Lista todos os usuários.
-* **POST /api/auth/register**: Registra um novo usuário.
-* **POST /api/auth/login**: Autentica um usuário e retorna um token JWT.
-* **GET /api/posts**: Lista todos os posts. (Requer autenticação).
-* **GET /api/posts/:id**: Obtém um post por ID. (Requer autenticação).
-* **POST /api/posts**: Cria um novo post (Requer autenticação).
-* **PUT /api/posts/:id**: Atualiza um post existente (Requer autenticação).
-* **DELETE /api/posts/:id**: Exclui um post (Requer autenticação).
-* **GET /api/posts/search?q=palavra-chave**: Busca posts por palavra-chave.
-
-### Exemplos de Requisição e Resposta
-
-### Utilize o Swagger para testar as requisições:
-
-```http://localhost:3000/api-docs/#/ ```
-
-### POST /api/auth/register
-
-```http
-POST /api/auth/register HTTP/1.1
-Host: localhost:3000
-Content-Type: application/json
-    
-        {
-            "username": "usuario2",
-            "password": "senhaSegura"
-        }
+techchallenge3
+├── .github                # Configurações do GitHub
+│   └── workflows          # Configurações de CI/CD
+│       └── ci-cd.yml     # Arquivo de configuração de CI/CD
+├── .next                  # Diretório gerado pelo Next.js para otimização
+├── coverage               # Relatórios de cobertura de testes
+├── node_modules           # Dependências do projeto
+├── public                 # Arquivos públicos disponíveis para o cliente
+│   └── bloguinho-logo.svg # Logo do Bloguinho
+├── src                    # Código fonte da aplicação
+│   ├── app                # Páginas da aplicação
+│   │   ├── admin          # Página de administração
+│   │   │   └── page.tsx
+│   │   ├── create-post    # Página para criação de um novo post
+│   │   │   └── page.tsx
+│   │   ├── login          # Página de login
+│   │   │   └── page.tsx
+│   │   ├── post           # Páginas relacionadas a posts
+│   │   │   └── [id]
+│   │   │       ├── edit   # Página para edição de um post
+│   │   │       │   └── page.tsx
+│   │   │       └── page.tsx # Página de visualização de um post
+│   │   ├── register       # Página de registro
+│   │   │   └── page.tsx
+│   │   ├── layout.tsx     # Layout principal da aplicação
+│   │   └── page.tsx       # Página inicial
+│   ├── components          # Componentes reutilizáveis da aplicação
+│   │   ├── Comment.tsx
+│   │   ├── CommentForm.tsx
+│   │   ├── Footer.tsx
+│   │   ├── Header.tsx
+│   │   ├── LoginForm.tsx
+│   │   ├── NavigationButtons.tsx
+│   │   └── PostList.tsx
+│   ├── contexts           # Contextos para gerenciamento de estado
+│   │   └── AuthContext.tsx
+│   ├── hooks              # Hooks personalizados
+│   │   ├── useAuth.ts
+│   │   └── usePosts.ts
+│   ├── services           # Configuração da API
+│   │   └── api.ts
+│   ├── styles             # Estilos globais da aplicação
+│   │   ├── globals.css
+│   └── types              # Tipos TypeScript
+│       ├── Comment.ts
+│       ├── CommentFormProps.ts
+│       ├── Post.ts
+│       └── User.ts
+├── __tests__              # Estrutura de testes da aplicação
+│   ├── api.test.tsx
+│   ├── AuthContext.test.tsx
+│   ├── Comment.test.tsx
+│   ├── CommentForm.test.tsx
+│   ├── Footer.test.tsx
+│   ├── Header.test.tsx
+│   ├── LoginForm.test.tsx
+│   ├── NavigationButtons.test.tsx
+│   ├── PostForm.test.tsx
+│   ├── PostList.test.tsx
+│   └── useAuth.test.tsx
+├── .eslintrc.json         # Configuração do ESLint
+├── .gitignore             # Arquivos a serem ignorados pelo Git
+├── Dockerfile             # Dockerfile na raiz do projeto
+├── next.config.mjs        # Configuração do Next.js
+├── next-env.d.ts          # Definições de tipos para o Next.js
+├── package.json           # Configuração do projeto e dependências
+├── package-lock.json      # Lockfile de dependências
+├── postcss.config.mjs     # Configuração do PostCSS
+├── README.md              # Documentação do projeto
+├── tailwind.config.ts      # Configuração do Tailwind CSS
+├── tsconfig.json          # Configuração do TypeScript
+├── jest.config.js         # Configuração do Jest
+└── jest.setup.js          # Configuração inicial para o Jest
 ```
 
-### Resposta:
+### Descrição das Principais Pastas
+- **src/app**: Contém as páginas principais da aplicação, permitindo a navegação entre diferentes seções.
+- **src/components**: Contém componentes reutilizáveis que são usados em várias partes da aplicação, como formulários, listas e botões de navegação.
+- **src/contexts**: Contém o contexto de autenticação (AuthContext), que gerencia o estado do usuário.
+- **src/hooks**: Contém hooks personalizados que encapsulam a lógica de estado e efeitos colaterais, como `useAuth` e `usePosts`.
+- **src/services**: Contém a configuração da API usando Axios, que permite a comunicação com o backend.
+- **src/styles**: Contém os estilos globais da aplicação, utilizando Tailwind CSS para estilização.
+- **src/types**: Contém definições de tipos TypeScript para garantir a tipagem estática e a segurança do código.
+- **__tests__**: Contém os arquivos de teste da aplicação, organizados de acordo com os componentes e funcionalidades que testam.
+- **.github**: Contém configurações de CI/CD.
+- **Dockerfile**: Arquivo para a construção de contêineres Docker.
+- **jest.config.js**: Configuração do Jest para testes.
+- **jest.setup.js**: Configuração inicial para o Jest, incluindo importações de bibliotecas e configuração global.
 
-```json
-    {
-      "id": 2,
-      "username": "usuario2",
-      "createdAt": "2024-08-09T12:34:56.000Z",
-      "updatedAt": "2024-08-09T12:34:56.000Z"
-    }
-```
+## 6. Guia de Uso
 
-### POST /api/auth/login
+### Registro e Login de Professores
+1. Para registrar um novo professor, acesse a página de registro e preencha os campos necessários.
+2. Após o registro, faça login usando suas credenciais.
 
-```http     
-POST /api/auth/login HTTP/1.1
-Host: localhost:3000
-Content-Type: application/json
-    
-        {
-            "username": "usuario2",
-            "password": "senhaSegura"
-        }
-```
+### Criação de Posts
+Professores autenticados podem acessar a página de criação de posts.
+1. Preencha os campos de título, conteúdo e autor, e clique em "Salvar".
 
-### Resposta
-```json
-    {
-        "token": "seu_token_jwt"
-    }
-```
+### Visualização de Posts
+A página inicial carrega uma lista de posts. Todos os usuários (professores e alunos) podem clicar em "Continuar Lendo" para visualizar um post completo.
+- Ao visualizar um post, qualquer usuário pode deixar comentários, mesmo que não esteja logado.
+- No entanto, apenas usuários logados podem excluir seus próprios comentários.
 
-### GET /api/users
+### Edição e Exclusão de Posts
+Professores podem acessar a "Sala do Professor" para gerenciar posts existentes.
+1. Clique em "Editar" para modificar um post ou "Excluir" para removê-lo.
 
-```http
-GET /api/users HTTP/1.1
-Host: localhost:3000
-```
-### Resposta
-    
-    ```json
-    [
-        {
-            "id": 1,
-            "username": "usuario1",
-            "createdAt": "2024-08-09T12:34:56.000Z",
-            "updatedAt": "2024-08-09T12:34:56.000Z"
-        }
-    ]
+## 7. Testes
+Os testes são uma parte crucial do desenvolvimento do "Bloguinho". O projeto utiliza o Jest e a Testing Library para garantir que a aplicação funcione conforme o esperado. Abaixo estão as instruções para executar os testes.
 
-    ```
-
-        
-
-### GET /api/posts
-
-```http
-GET /api/posts HTTP/1.1
-Host: localhost:3000
-Authorization: Bearer seu_token_jwt
-```
-
-### Resposta:
-
-```json
-[
-  {
-    "id": 1,
-    "title": "Primeiro Post",
-    "content": "Este é o conteúdo do primeiro post.",
-    "author": "Professor João",
-    "createdAt": "2023-10-12T12:59:26.123Z",
-    "updatedAt": "2023-10-12T12:59:26.123Z"
-  }
-]
-```
-
-### POST /api/posts
-
-```http
-POST /api/posts HTTP/1.1
-Host: localhost:3000
-Authorization: Bearer seu_token_jwt
-
-    {
-        "title": "Novo Post",
-        "content": "Conteúdo do novo post.",
-        "author": "Professor Maria"
-    }
-```
-
-### Resposta:
-
-```json
-{
-  "id": 2,
-  "title": "Novo Post",
-  "content": "Conteúdo do novo post.",
-  "author": "Professor Maria",
-  "createdAt": "2023-10-12T12:59:26.123Z",
-  "updatedAt": "2023-10-12T12:59:26.123Z"
-}
-```
-
-### GET /api/posts/:id
-
-```http
-GET /api/posts/1 HTTP/1.1
-Host: localhost:3000
-Authorization: Bearer seu_token_jwt
-```
-
-### Resposta:
-
-```json
-{
-  "id": 1,
-  "title": "Primeiro Post",
-  "content": "Este é o conteúdo do primeiro post.",
-  "author": "Professor João",
-  "createdAt": "2023-10-12T12:59:26.123Z",
-  "updatedAt": "2023-10-12T12:59:26.123Z"
-}
-```
-
-### PUT /api/posts/:id
-
-```http
-PUT /api/posts/1 HTTP/1.1
-Host: localhost:3000
-Content-Type: application/json
-Authorization: Bearer seu_token_jwt
-
-    {
-        "title": "Título Atualizado",
-        "content": "Conteúdo Atualizado",
-        "author": "Professor João"
-    }
-```
-
-### Resposta:
-
-```json
-{
-  "id": 1,
-  "title": "Título Atualizado",
-  "content": "Conteúdo Atualizado",
-  "author": "Professor João",
-  "createdAt": "2023-10-12T12:59:26.123Z",
-  "updatedAt": "2023-10-12T12:59:26.123Z"
-}
-```
-
-### DELETE /api/posts/:id
-
-```http
-DELETE /api/posts/1 HTTP/1.1
-Host: localhost:3000
-Authorization: Bearer seu_token_jwt
-```
-
-### Resposta:
-
-```json
-{
-  "message": "Post excluído com sucesso"
-}
-```
-
-**GET /api/posts/search?q=palavra-chave**
-
-```http
-GET /api/posts/search?q=Primeiro HTTP/1.1
-Host: localhost:3000
-Authorization: Bearer seu_token_jwt
-```
-
-### Resposta:
-
-```json
-[
-  {
-    "id": 1,
-    "title": "Primeiro Post",
-    "content": "Este é o conteúdo do primeiro post.",
-    "author": "Professor João",
-    "createdAt": "2023-10-12T12:59:26.123Z",
-    "updatedAt": "2023-10-12T12:59:26.123Z"
-  }
-]
-```
-
-### Variáveis de Ambiente
-Certifique-se de configurar as seguintes variáveis de ambiente no arquivo `.env`:
-
-* `DATABASE_URL`=postgresql://educablog:123456@db:5432/educablog?schema=public
-* `JWT_SECRET`=F6&uP!5m@6B0g3vR8kL*Q9z7D
-### Scripts Disponíveis
-
-**start**: Inicia a aplicação com `ts-node` para executar `src/app.ts`.
-```bash
-npm start
-```
-
-**build**: Transpila o código TypeScript para JavaScript usando o TypeScript Compiler (tsc).
-```bash
-npm run build
-```
-
-**lint**: Executa o ESLint para verificar o código fonte.
-```bash
-npm run lint
-```
-
-**format**: Formata o código fonte usando Prettier.
-```bash
-npm run format
-```
-
-**test**: Executa os testes com Jest.
-```bash
-npm test
-```
-
-### Como Usar
-
-Para iniciar a aplicação:
-
-```bash
-npm start
-```
-
-Para transpilar o código TypeScript:
-```bash
-npm run build
-```
-
-Para verificar o código fonte com linting:
-```bash
-npm run lint
-```
-
-Para formatar o código fonte:
-```bash
-npm run format
-```
-
-Para executar os testes:
+### Executando os Testes
+Para executar os testes, utilize o seguinte comando:
 
 ```bash
 npm test
 ```
-
-# Docker
-
-Para rodar a aplicação usando Docker:
-
-1. Rode a aplicação:
+ou
 ```bash
-docker-compose up --build
+yarn test
 ```
 
-## Cobertura de Testes
-O projeto deve garantir que pelo menos 30% do código seja coberto por testes unitários. Para verificar a cobertura de testes, você pode usar o Jest com a seguinte configuração:
+### Cobertura de Testes
+Para gerar um relatório de cobertura de testes, utilize:
 
-1. Execute os testes com cobertura:
-   ```bash
-   npm test -- --coverage
-   ```
-2. O relatório de cobertura será gerado na pasta coverage/. Você pode visualizar o índice de cobertura e as partes do código que estão sendo testadas.
-
-## Autenticação e Autorização
-A aplicação utiliza JSON Web Tokens (JWT) para autenticação de usuários. Ao fazer login, um token é gerado e deve ser incluído no cabeçalho `Authorization` das requisições para os endpoints que requerem autenticação.
-
-1. **Login**: O endpoint `/api/auth/login` permite que os usuários se autentiquem e recebam um token JWT.
-2. **Proteção dos Endpoints**: Os endpoints que modificam dados (POST, PUT, DELETE) estão protegidos por um middleware de autenticação que verifica a validade do token antes de permitir a execução das operações.
-
-# CI/CD com GitHub Actions
-
-### Workflow de CI/CD
-
-**.github/workflows/ci-cd.yml**
-
+```bash
+npm run coverage
 ```
-name: CI/CD Pipeline
+ou
+```bash
+yarn coverage
+```
 
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+Os relatórios serão exibidos no terminal e também podem ser acessados em um formato HTML na pasta `coverage`.
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
+## 8. Desafios e Experiências
+Durante o desenvolvimento do projeto, a equipe enfrentou vários desafios, incluindo:
+- **Gerenciamento de Estado**: A implementação do contexto de autenticação foi um desafio, especialmente ao lidar com o armazenamento do usuário no `localStorage` e a recuperação dos dados.
+- **Integração com o Backend**: A comunicação com a API do backend exigiu atenção especial para garantir que as requisições fossem feitas corretamente e que os erros fossem tratados de forma adequada.
+- **Design Responsivo**: A adaptação da interface para diferentes tamanhos de tela utilizando Tailwind CSS foi um aprendizado significativo.
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+## 9. Conclusão
+O projeto "Bloguinho" é uma aplicação funcional que atende aos requisitos de um blog simples, permitindo interações básicas entre professores e alunos. A equipe aprendeu muito sobre o desenvolvimento com Next.js, a integração com APIs e a importância de um design responsivo.
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
+Sinta-se à vontade para contribuir com melhorias ou relatar problemas no repositório.
 
-      - name: Install Docker Compose
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y docker-compose
+## 10. Licença
 
-      - name: Build Docker images
-        run: docker-compose build
-
-      - name: Run Prisma Migrations
-        env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL_DOCKER }}
-        run: |
-          docker-compose run --rm app npx prisma migrate deploy
-
-      - name: Run Tests
-        env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL_DOCKER }}
-        run: |
-          docker-compose run --rm app npm test
-
-      - name: Stop and Remove Existing Containers
-        run: |
-          docker-compose down
-
-      - name: Deploy to Production
-        env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL_DOCKER }}
-          JWT_SECRET: ${{ secrets.JWT_SECRET }}
-        run: |
-          docker-compose up -d
-````
-
-# Contribuição
-
-Se você deseja contribuir com este projeto, siga os passos abaixo:
-
-1. Fork o repositório.
-2. Crie uma nova branch (git checkout -b feature/nova-feature).
-3. Commit suas mudanças (git commit -am 'Adiciona nova feature').
-4. Push para a branch (git push origin feature/nova-feature).
-5. Abra um Pull Request.
-
-# Equipe
-
-* Ariel Andrielli Rodrigues da Silva
-* Gustavo Almeida Carriel
-* José Luccas Gabriel Francisco de Andrade Santos
-* Vitor Vilson Laurentino
-* Thwany Leles
-
-## Considerações Finais
-O EducaBlog é uma ferramenta projetada para facilitar a comunicação entre professores e alunos, promovendo um ambiente de aprendizado mais dinâmico e acessível. Acreditamos que com a implementação deste projeto, conseguiremos oferecer uma plataforma que atenda às necessidades da educação pública.
-
-Agradecemos a todos que contribuíram para este projeto e esperamos que ele possa ser uma ferramenta valiosa para a comunidade educacional.
-
-**Nota**: Este README é um documento vivo e será atualizado conforme novas funcionalidades e melhorias forem implementadas.
-
-# Licença
-
-Este projeto está licenciado sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+Este projeto está licenciado sob a MIT License. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
