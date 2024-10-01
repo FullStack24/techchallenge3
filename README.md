@@ -25,7 +25,7 @@ O protótipo da aplicação foi desenvolvido e está disponível no Figma: [Prot
 Clone o repositório:
 
 ```bash
-git clone https://github.com/thwanyleles/techchallenge3.git
+git clone https://github.com/FullStack24/techchallenge3.git
 cd techchallenge3
 ```
 
