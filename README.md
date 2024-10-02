@@ -1,6 +1,9 @@
 
 # Documentação do Projeto - Bloguinho
 
+## Video:
+https://youtu.be/OuYNq0d8Dvg
+
 ## 1. Introdução
 O projeto "Bloguinho" é uma aplicação web desenvolvida com Next.js que permite a criação, edição e visualização de posts de blog. Neste sistema, professores podem se registrar, fazer login, criar, editar e excluir posts, enquanto alunos podem apenas visualizar os posts e deixar comentários.
 
